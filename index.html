@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=BBH+Sans+Bogle&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poiret+One&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&family=Tomorrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            min-height: 100vh;
+            background: #0a0a0a;
+            color: #ffffff;
+            position: relative;
+            overflow-x: hidden;
+            font-size: 14px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)),
+                url('https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: -3;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(255, 255, 255, 0.05) 0%, 
+                transparent 40%,
+                rgba(255, 255, 255, 0.03) 60%,
+                transparent 100%);
+            z-index: -2;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                transform: translateX(0) translateY(0);
+            }
+            50% {
+                transform: translateX(-50px) translateY(-50px);
+            }
+        }
+
+        .code-particle {
+            position: fixed;
+            color: rgba(255, 255, 255, 0.3);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            opacity: 0.15;
+            z-index: -1;
+            animation: floatCode 20s infinite linear;
+        }
+
+        @keyframes floatCode {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.15;
+            }
+            90% {
+                opacity: 0.15;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        h1 {
+            font-family: 'Tomorrow', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            margin: 20px 0 15px;
+            background: linear-gradient(45deg, #ffffff, #00d4ff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 4px;
+            animation: neonPulse 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+        }
+
+        @keyframes neonPulse {
+            0%, 100% {
+                filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+            }
+            50% {
+                filter: drop-shadow(0 0 25px rgba(0, 212, 255, 0.8));
+            }
+        }
+
+        .table {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            margin: 20px auto;
+            max-width: 1200px;
+            padding: 0 20px;
+            align-items: stretch;
+        }
+
+        .grade {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex: 1;
+            padding: 20px 15px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.08),
+                rgba(255, 255, 255, 0.02));
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px 10px 25px 10px;
+            box-shadow: 
+                0 0 15px rgba(255, 255, 255, 0.1),
+                inset 0 0 10px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .grade:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .con {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            flex: 2;
+        }
+
+        .participants, .duration {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 20px 15px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.06),
+                rgba(0, 212, 255, 0.02));
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px 30px 20px 30px;
+            box-shadow: 
+                0 0 15px rgba(255, 255, 255, 0.08),
+                inset 0 0 10px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .participants:hover, .duration:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .table span {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            text-align: center;
+            font-weight: 300;
+        }
+
+        .table h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Tomorrow', sans-serif;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .instructions {
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 25px 30px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.05),
+                rgba(0, 0, 0, 0.5));
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px 15px 30px 15px;
+            box-shadow: 
+                0 0 20px rgba(255, 255, 255, 0.05),
+                inset 0 0 15px rgba(0, 0, 0, 0.8);
+        }
+
+        .instructions h2 {
+            font-family: 'Tomorrow', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 3px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .instructions ul {
+            list-style: none;
+            padding: 0;
+            columns: 2;
+            column-gap: 25px;
+        }
+
+        .instructions li {
+            padding: 8px 10px 8px 28px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.03),
+                rgba(0, 0, 0, 0.3));
+            border-left: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 0 10px 10px 0;
+            transition: all 0.3s ease;
+            position: relative;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.8rem;
+            break-inside: avoid;
+        }
+
+        .instructions li::before {
+            content: '>';
+            position: absolute;
+            left: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .instructions li:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.08),
+                rgba(0, 0, 0, 0.5));
+            transform: translateX(5px);
+            color: #ffffff;
+        }
+
+        .jc {
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 0 20px;
+        }
+
+        .jc h2 {
+            font-family: 'Tomorrow', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 3px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .jc > div {
+            display: inline-block;
+            width: calc(25% - 12px);
+            margin: 0 6px;
+            padding: 18px 12px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.06),
+                rgba(255, 255, 255, 0.02));
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px 8px 20px 8px;
+            box-shadow: 
+                0 0 15px rgba(255, 255, 255, 0.08),
+                inset 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #ffffff;
+            vertical-align: top;
+        }
+
+        .jc > div:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .incharges {
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 0 20px;
+        }
+
+        .incharges h2 {
+            font-family: 'Tomorrow', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-align: center;
+            letter-spacing: 3px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .incharges-container {
+            display: flex;
+            gap: 20px;
+            align-items: stretch;
+        }
+
+        .teacheric, .studentic {
+            flex: 1;
+            padding: 20px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.05),
+                rgba(255, 255, 255, 0.02));
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 25px 10px 25px 10px;
+            box-shadow: 
+                0 0 15px rgba(255, 255, 255, 0.05),
+                inset 0 0 10px rgba(0, 0, 0, 0.6);
+        }
+
+        .teacheric h3, .studentic h3 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+        }
+
+        .teacheric h4 {
+            margin: 8px 0;
+            font-weight: 400;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .teacheric a, .studentic a {
+            color: #00d4ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .teacheric a:hover, .studentic a:hover {
+            color: #ffffff;
+        }
+
+        .teacheric p {
+            margin-top: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border-left: 2px solid rgba(255, 255, 255, 0.5);
+            font-size: 0.75rem;
+        }
+
+        .studentic ol {
+            list-style: none;
+            padding: 0;
+        }
+
+        .studentic li {
+            padding: 8px 0;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .studentic li::before {
+            content: '▸';
+            margin-right: 8px;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .registration {
+            max-width: 1200px;
+            margin: 30px auto 30px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .registration h2 {
+            font-family: 'Tomorrow', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 18px;
+            letter-spacing: 3px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .registration h3 {
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .regnow {
+            display: inline-block;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .regnow a {
+            display: block;
+            padding: 15px 45px;
+            background: linear-gradient(45deg, 
+                #ffffff,
+                #00d4ff,
+                #ffffff,
+                #00d4ff);
+            background-size: 300% 300%;
+            color: #000;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 800;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+            animation: gradientMove 3s ease infinite;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .regnow a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .regnow a:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .regnow a:hover {
+            transform: scale(1.05);
+            box-shadow: 
+                0 8px 25px rgba(255, 255, 255, 0.3),
+                0 0 30px rgba(0, 212, 255, 0.3);
+        }
+
+        @media (max-width: 968px) {
+            .instructions ul {
+                columns: 1;
+            }
+
+            .jc > div {
+                width: calc(50% - 12px);
+                margin: 6px;
+            }
+
+            .incharges-container {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+                letter-spacing: 2px;
+            }
+
+            .table {
+                flex-direction: column;
+            }
+
+            .con {
+                flex-direction: column;
+            }
+
+            .table h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .jc > div {
+                width: 100%;
+                margin: 8px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="code-particle" style="left: 10%; animation-delay: 0s;">function(){</div>
+    <div class="code-particle" style="left: 20%; animation-delay: 3s;">const web =</div>
+    <div class="code-particle" style="left: 35%; animation-delay: 6s;"><html></div>
+    <div class="code-particle" style="left: 50%; animation-delay: 9s;">.css{}</div>
+    <div class="code-particle" style="left: 65%; animation-delay: 12s;">return true;</div>
+    <div class="code-particle" style="left: 80%; animation-delay: 15s;">let code =</div>
+    <div class="code-particle" style="left: 90%; animation-delay: 18s;">};</div>
+
+    <h1>WEBOLUTION</h1>
+    <section class="table">
+        <div class="grade">
+            <span>Classes Eligible</span>
+            <h3>IX-XII</h3>
+        </div>
+        <div class="con">
+            <div class="participants">
+                <span>No. of Participants per Team</span>
+                <h3>2</h3>
+            </div>
+            <div class="duration">
+                <span>Duration</span>
+                <h3>1 HOUR</h3>
+            </div>
+        </div>
+    </section>
+    <section class="instructions">
+        <h2>RULES</h2>
+        <ul>
+            <li>Participants will have to design a website on a topic provided on the spot.</li>
+            <li>Websites must be developed using HTML, CSS, and JavaScript.</li>
+            <li>VS Code software will be provided.</li>
+            <li>Images, videos, and other media will be provided by the host school.</li>
+            <li>The website must include at least 4 web pages (e.g., Home, About, Contact).</li>
+            <li>Navigation should be clear and functional.</li>
+            <li>Pages must be responsive and displayed properly on different screen sizes.</li>
+            <li>Participants must try to create interactive web pages (forms, buttons, or simple animations).</li>
+            <li>Any attempt to bypass website restrictions or access unauthorized content will result in
+                disqualification.</li>
+            <li>The decision of the judges will be final and binding.</li>
+        </ul>
+    </section>
+    <section class="jc">
+        <h2>JUDGEMENT CRITERIA</h2>
+        <div class="jcone">
+            Design & Creativity
+        </div>
+        <div class="jctwo">
+            Functionality & Navigation
+        </div>
+        <div class="jcthree">
+            Code Quality & Best Practices
+        </div>
+        <div class="jcfour">
+            Originality & Theme Relevance
+        </div>
+    </section>
+    <section class="incharges">
+        <h2>INCHARGES</h2>
+        <div class="incharges-container">
+            <div class="teacheric">
+                <h3>Teacher in-Charge</h3>
+                <h4>Ms. Sandhya Puri</h4>
+                <h4>Email ID: <a href="mailto:sandhyap.csn@cambridgeschool.edu.in">sandhyap.csn@cambridgeschool.edu.in</a>
+                </h4>
+                <h4>Mobile number: <a href="tel:+919818122267">9818122267</a></h4>
+                <p>You may contact the above mentioned teacher(s) incharge on any working day between 2 p.m.
+                    to 4 p.m.</p>
+            </div>
+            <div class="studentic">
+                <h3>Students in-Charge</h3>
+                <ol>
+                    <li>Kshitij Gupta</li>
+                    <li>Shreyas Nair</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+    <section class="registration">
+        <h2>REGISTRATION</h2>
+        <h3>A maximum of 10 entries will be allowed to register through the link provided on first come
+            first serve basis.</h3>
+        <h3>Team numbers will be allotted at the registration table on the day of the event.</h3>
+        <div class="regnow">
+            <a href="https://forms.gle/oz2yGNRKFSkqxqcYA" target="_blank">
+                <p>Register Now!</p>
+            </a>
+        </div>
+    </section>
+</body>
+
+</html>
