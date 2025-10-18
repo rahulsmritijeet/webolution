@@ -108,6 +108,13 @@
             letter-spacing: 4px;
             animation: neonPulse 3s ease-in-out infinite;
             filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        h1:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.8));
         }
 
         @keyframes neonPulse {
@@ -148,11 +155,31 @@
                 0 0 15px rgba(255, 255, 255, 0.1),
                 inset 0 0 10px rgba(0, 0, 0, 0.5);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grade::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .grade:hover::before {
+            left: 100%;
         }
 
         .grade:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.02);
             border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 
+                0 5px 25px rgba(255, 255, 255, 0.2),
+                inset 0 0 15px rgba(255, 255, 255, 0.05);
         }
 
         .con {
@@ -180,11 +207,31 @@
                 0 0 15px rgba(255, 255, 255, 0.08),
                 inset 0 0 10px rgba(0, 0, 0, 0.5);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .participants::before, .duration::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .participants:hover::before, .duration:hover::before {
+            left: 100%;
         }
 
         .participants:hover, .duration:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.02);
             border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 
+                0 5px 25px rgba(0, 212, 255, 0.2),
+                inset 0 0 15px rgba(0, 212, 255, 0.05);
         }
 
         .table span {
@@ -195,6 +242,7 @@
             margin-bottom: 5px;
             text-align: center;
             font-weight: 300;
+            transition: color 0.3s ease;
         }
 
         .table h3 {
@@ -203,6 +251,12 @@
             font-family: 'Tomorrow', sans-serif;
             color: #ffffff;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .grade:hover h3, .participants:hover h3, .duration:hover h3 {
+            transform: scale(1.1);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
 
         .instructions {
@@ -219,6 +273,14 @@
             box-shadow: 
                 0 0 20px rgba(255, 255, 255, 0.05),
                 inset 0 0 15px rgba(0, 0, 0, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        .instructions:hover {
+            box-shadow: 
+                0 0 30px rgba(255, 255, 255, 0.1),
+                inset 0 0 20px rgba(0, 0, 0, 0.8);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .instructions h2 {
@@ -229,6 +291,11 @@
             letter-spacing: 3px;
             color: #ffffff;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .instructions:hover h2 {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
         }
 
         .instructions ul {
@@ -261,14 +328,22 @@
             font-size: 0.7rem;
             color: #ffffff;
             font-weight: bold;
+            transition: all 0.3s ease;
         }
 
         .instructions li:hover {
             background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.08),
+                rgba(255, 255, 255, 0.1),
                 rgba(0, 0, 0, 0.5));
-            transform: translateX(5px);
+            transform: translateX(10px);
             color: #ffffff;
+            border-left-width: 4px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .instructions li:hover::before {
+            transform: translateX(5px);
+            color: #00d4ff;
         }
 
         .jc {
@@ -287,10 +362,16 @@
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
         }
 
-        .jc > div {
-            display: inline-block;
-            width: calc(25% - 12px);
-            margin: 0 6px;
+        .jc-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: nowrap;
+        }
+
+        .jc-wrapper > div {
+            flex: 1;
+            min-width: 0;
             padding: 18px 12px;
             background: linear-gradient(135deg, 
                 rgba(255, 255, 255, 0.06),
@@ -307,12 +388,38 @@
             font-size: 0.85rem;
             font-weight: 500;
             color: #ffffff;
-            vertical-align: top;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
         }
 
-        .jc > div:hover {
-            transform: translateY(-3px);
+        .jc-wrapper > div::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 255, 255, 0.1));
+            transition: height 0.3s ease;
+        }
+
+        .jc-wrapper > div:hover::before {
+            height: 100%;
+        }
+
+        .jc-wrapper > div:hover {
+            transform: translateY(-8px) rotateZ(-1deg);
             border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 
+                0 10px 30px rgba(255, 255, 255, 0.15),
+                inset 0 0 15px rgba(255, 255, 255, 0.05);
+            z-index: 1;
+        }
+
+        .jc-wrapper > div span {
+            position: relative;
+            z-index: 1;
         }
 
         .incharges {
@@ -350,6 +457,16 @@
             box-shadow: 
                 0 0 15px rgba(255, 255, 255, 0.05),
                 inset 0 0 10px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .teacheric:hover, .studentic:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 
+                0 5px 25px rgba(255, 255, 255, 0.1),
+                inset 0 0 15px rgba(255, 255, 255, 0.03);
         }
 
         .teacheric h3, .studentic h3 {
@@ -357,6 +474,11 @@
             margin-bottom: 12px;
             color: #ffffff;
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .teacheric:hover h3, .studentic:hover h3 {
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
         }
 
         .teacheric h4 {
@@ -364,16 +486,38 @@
             font-weight: 400;
             font-size: 0.85rem;
             color: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+        }
+
+        .teacheric:hover h4 {
+            color: #ffffff;
         }
 
         .teacheric a, .studentic a {
             color: #00d4ff;
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .teacheric a::after, .studentic a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #ffffff;
+            transition: width 0.3s ease;
+        }
+
+        .teacheric a:hover::after, .studentic a:hover::after {
+            width: 100%;
         }
 
         .teacheric a:hover, .studentic a:hover {
             color: #ffffff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
         }
 
         .teacheric p {
@@ -385,6 +529,12 @@
             border-radius: 8px;
             border-left: 2px solid rgba(255, 255, 255, 0.5);
             font-size: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .teacheric:hover p {
+            background: rgba(0, 0, 0, 0.5);
+            border-left-color: #ffffff;
         }
 
         .studentic ol {
@@ -396,6 +546,8 @@
             padding: 8px 0;
             font-size: 0.95rem;
             color: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+            cursor: default;
         }
 
         .studentic li::before {
@@ -404,6 +556,17 @@
             color: #ffffff;
             font-weight: bold;
             font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .studentic li:hover {
+            color: #ffffff;
+            transform: translateX(5px);
+        }
+
+        .studentic li:hover::before {
+            color: #00d4ff;
+            transform: translateX(3px);
         }
 
         .registration {
@@ -428,6 +591,11 @@
             color: rgba(255, 255, 255, 0.8);
             font-size: 0.85rem;
             line-height: 1.5;
+            transition: color 0.3s ease;
+        }
+
+        .registration h3:hover {
+            color: #ffffff;
         }
 
         .regnow {
@@ -489,10 +657,10 @@
         }
 
         .regnow a:hover {
-            transform: scale(1.05);
+            transform: scale(1.1) rotateZ(-2deg);
             box-shadow: 
-                0 8px 25px rgba(255, 255, 255, 0.3),
-                0 0 30px rgba(0, 212, 255, 0.3);
+                0 10px 40px rgba(255, 255, 255, 0.4),
+                0 0 60px rgba(0, 212, 255, 0.4);
         }
 
         @media (max-width: 968px) {
@@ -500,9 +668,9 @@
                 columns: 1;
             }
 
-            .jc > div {
-                width: calc(50% - 12px);
-                margin: 6px;
+            .jc-wrapper > div {
+                padding: 15px 8px;
+                font-size: 0.75rem;
             }
 
             .incharges-container {
@@ -527,6 +695,14 @@
             .table h3 {
                 font-size: 1.2rem;
             }
+
+            .jc-wrapper {
+                flex-wrap: wrap;
+            }
+
+            .jc-wrapper > div {
+                flex: 1 1 calc(50% - 7.5px);
+            }
         }
 
         @media (max-width: 480px) {
@@ -534,9 +710,8 @@
                 font-size: 2rem;
             }
 
-            .jc > div {
-                width: 100%;
-                margin: 8px 0;
+            .jc-wrapper > div {
+                flex: 1 1 100%;
             }
         }
     </style>
@@ -586,17 +761,19 @@
     </section>
     <section class="jc">
         <h2>JUDGEMENT CRITERIA</h2>
-        <div class="jcone">
-            Design & Creativity
-        </div>
-        <div class="jctwo">
-            Functionality & Navigation
-        </div>
-        <div class="jcthree">
-            Code Quality & Best Practices
-        </div>
-        <div class="jcfour">
-            Originality & Theme Relevance
+        <div class="jc-wrapper">
+            <div class="jcone">
+                <span>Design & Creativity</span>
+            </div>
+            <div class="jctwo">
+                <span>Functionality & Navigation</span>
+            </div>
+            <div class="jcthree">
+                <span>Code Quality & Best Practices</span>
+            </div>
+            <div class="jcfour">
+                <span>Originality & Theme Relevance</span>
+            </div>
         </div>
     </section>
     <section class="incharges">
